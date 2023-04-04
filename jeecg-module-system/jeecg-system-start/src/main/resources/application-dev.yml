@@ -132,8 +132,8 @@ spring:
       datasource:
         master:
           url: jdbc:mysql://mysql.jtcl.top:3306/jeecg-iot-plat?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
-          username: root
-          password: jtcl.top
+          username: iot-plat
+          password: iot-plat
           driver-class-name: com.mysql.cj.jdbc.Driver
           # 多数据源配置
           #multi-datasource1:
