@@ -57,6 +57,24 @@ public class Swagger2Config implements WebMvcConfigurer {
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
+    @Bean(value = "iot")
+    public Docket defaultApiIot() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("iot")
+                .apiInfo(apiInfo())
+                .select()
+                //此包路径下的类，才生成接口文档
+                .apis(RequestHandlerSelectors.basePackage("org.jeecg.modules.iot"))
+                //加了ApiOperation注解的类，才生成接口文档
+                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                .paths(PathSelectors.any())
+                .build()
+                .securitySchemes(Collections.singletonList(securityScheme()))
+                .securityContexts(securityContexts())
+                .globalOperationParameters(setHeaderToken());
+    }
+
     /**
      * swagger2的配置文件，这里可以配置swagger2的一些基本的内容，比如扫描的包等等
      *
@@ -65,6 +83,7 @@ public class Swagger2Config implements WebMvcConfigurer {
     @Bean(value = "defaultApi2")
     public Docket defaultApi2() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("default")
                 .apiInfo(apiInfo())
                 .select()
                 //此包路径下的类，才生成接口文档
@@ -109,16 +128,16 @@ public class Swagger2Config implements WebMvcConfigurer {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 // //大标题
-                .title("JeecgBoot 后台服务API接口文档")
+                .title("后台服务API接口文档")
                 // 版本号
                 .version("1.0")
 //				.termsOfServiceUrl("NO terms of service")
                 // 描述
                 .description("后台API接口")
                 // 作者
-                .contact(new Contact("北京敲敲云科技有限公司","www.jeccg.com","jeecgos@163.com"))
-                .license("The Apache License, Version 2.0")
-                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
+                .contact(new Contact("jtcl","","shijinting0321@163.com"))
+                .license("")
+                .licenseUrl("")
                 .build();
     }
 
