@@ -1,7 +1,9 @@
 package org.jeecg.modules.iot.gateway.service.impl;
 
+import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.commons.collections4.CollectionUtils;
+import org.jeecg.common.exception.JeecgBootException;
 import org.jeecg.modules.iot.gateway.entity.IotGateway;
 import org.jeecg.modules.iot.gateway.mapper.IotGatewayMapper;
 import org.jeecg.modules.iot.gateway.service.IIotGatewayService;
@@ -25,8 +27,9 @@ public class IotGatewayServiceImpl extends ServiceImpl<IotGatewayMapper, IotGate
         //校验编码唯一性
         List<IotGateway> list = super.list(new LambdaQueryWrapper<IotGateway>().eq(IotGateway::getCode, entity.getCode()));
         if (CollectionUtils.isNotEmpty(list)){
-          return false;
+          throw new JeecgBootException("编码已存在");
         }
+        entity.setToken(MD5.create().digestHex(entity.getCode()));
         return super.save(entity);
     }
 }

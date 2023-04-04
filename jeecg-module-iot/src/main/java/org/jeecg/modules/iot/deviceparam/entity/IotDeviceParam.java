@@ -41,7 +41,6 @@ public class IotDeviceParam implements Serializable {
     @ApiModelProperty(value = "租户号")
     private java.lang.String tenantId;
 	/**乐观锁*/
-	@Excel(name = "乐观锁", width = 15)
     @ApiModelProperty(value = "乐观锁")
     private java.lang.String version;
 	/**创建人*/

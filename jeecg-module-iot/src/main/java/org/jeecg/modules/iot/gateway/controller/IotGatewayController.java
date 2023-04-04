@@ -81,9 +81,9 @@ public class IotGatewayController extends JeecgController<IotGateway, IIotGatewa
 	@AutoLog(value = "网关管理-编辑")
 	@ApiOperation(value="网关管理-编辑", notes="网关管理-编辑")
 	//@RequiresPermissions("gateway:iot_gateway:edit")
-	@RequestMapping(value = "/edit", method = {RequestMethod.PUT,RequestMethod.POST})
+	@PutMapping(value = "/edit")
 	public Result<String> edit(@RequestBody IotGateway iotGateway) {
-		iotGatewayService.updateById(iotGateway);
+		boolean b = iotGatewayService.updateById(iotGateway);
 		return Result.OK("编辑成功!");
 	}
 	

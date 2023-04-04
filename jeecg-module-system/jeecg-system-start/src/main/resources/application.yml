@@ -165,10 +165,9 @@ mybatis-plus:
     # 关闭MP3.0自带的banner
     banner: false
     db-config:
-      #主键类型  0:"数据库ID自增",1:"该类型为未设置主键类型", 2:"用户输入ID",3:"全局唯一ID (数字类型唯一ID)", 4:"全局唯一ID UUID",5:"字符串全局唯一ID (idWorker 的字符串表示)";
-      id-type: ASSIGN_ID
-      # 默认数据库表下划线命名
-      table-underline: true
+      id-type: ASSIGN_ID       #主键类型  0:"数据库ID自增",1:"该类型为未设置主键类型", 2:"用户输入ID",3:"全局唯一ID (数字类型唯一ID)", 4:"全局唯一ID UUID",5:"字符串全局唯一ID (idWorker 的字符串表示)";
+      table-underline: true  # 默认数据库表下划线命名
+      logic-delete-field: delFlag # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
   configuration:
     # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
     #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
