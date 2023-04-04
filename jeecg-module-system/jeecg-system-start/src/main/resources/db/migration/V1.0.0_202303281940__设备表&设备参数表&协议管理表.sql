@@ -1,6 +1,6 @@
 /* --------------- 创建表 --------------- */
-DROP TABLE IF EXISTS tb_device;
-CREATE TABLE tb_device
+DROP TABLE IF EXISTS iot_device;
+CREATE TABLE iot_device
 (
     `id`                VARCHAR(64)  NOT NULL COMMENT 'ID',
     `tenant_id`         VARCHAR(64) COMMENT '租户号',
@@ -22,8 +22,8 @@ CREATE TABLE tb_device
     `status`            VARCHAR(2) COMMENT '状态',
     PRIMARY KEY (id)
 ) COMMENT = '设备表';
-DROP TABLE IF EXISTS tb_device_param;
-CREATE TABLE tb_device_param
+DROP TABLE IF EXISTS iot_device_param;
+CREATE TABLE iot_device_param
 (
     `id`                VARCHAR(64) NOT NULL COMMENT 'ID',
     `tenant_id`         VARCHAR(64) COMMENT '租户号',
@@ -45,8 +45,8 @@ CREATE TABLE tb_device_param
     PRIMARY KEY (id)
 ) COMMENT = '设备参数表';
 
-DROP TABLE IF EXISTS tb_protocol_plugins;
-CREATE TABLE tb_protocol_plugins
+DROP TABLE IF EXISTS iot_protocol_plugins;
+CREATE TABLE iot_protocol_plugins
 (
     `id`          VARCHAR(64) NOT NULL COMMENT 'ID',
     `tenant_id`   VARCHAR(64) COMMENT '租户号',

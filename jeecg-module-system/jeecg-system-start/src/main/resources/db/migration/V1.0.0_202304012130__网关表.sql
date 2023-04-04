@@ -1,7 +1,7 @@
 
 /* --------------- 创建表 --------------- */
-DROP TABLE IF EXISTS tb_gateway;
-CREATE TABLE tb_gateway(
+DROP TABLE IF EXISTS iot_gateway;
+CREATE TABLE iot_gateway(
     `id` VARCHAR(64) NOT NULL   COMMENT 'ID' ,
     `tenant_id` VARCHAR(64)    COMMENT '租户号' ,
     `version` VARCHAR(64)    COMMENT '乐观锁' ,
