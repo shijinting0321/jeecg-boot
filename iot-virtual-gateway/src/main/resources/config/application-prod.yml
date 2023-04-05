@@ -43,4 +43,4 @@ cec:
           - name: device/{id}/tcaRuleIssue
 logging:
   level:
-    com.aidex.gateway.service: debug
+    root: info

@@ -19,22 +19,22 @@ spring:
     # 假如已经执行了版本1和版本3，如果增加了一个版本2，下面这个选项将会允许执行版本2的脚本
     out-of-order: false
 plugin:
-  mainPackage: com.aidex.gateway
+  mainPackage: org.jeecg.virtualgateway
   pluginPath:
     - ~/plugins
 mybatis-plus:
-  mapper-locations: classpath:cec/ac/soft/gateway/mapper/xml/*Mapper.xml
+  mapper-locations: classpath:org/jeecg/virtualgateway/mapper/xml/*Mapper.xml
   configuration:
     map-underscore-to-camel-case: true
   global-config:
     db-config:
       logic-delete-value: 1
       logic-not-delete-value: 0
-      table-prefix: cec_
+      table-prefix: iot_
 cec:
   cloud:
     enable: false
-    login-info-class: com.aidex.gateway.entity.SoftLoginInfo
+    login-info-class: org.jeecg.virtualgateway.entity.SoftLoginInfo
 # 健康检查配置
 management:
   endpoint:
