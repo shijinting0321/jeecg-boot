@@ -78,6 +78,7 @@
         <module>jeecg-boot-base-core</module>
         <module>jeecg-module-system</module>
         <module>jeecg-module-iot</module>
+		<module>iot-virtual-gateway</module>
     </modules>
 
 	<repositories>

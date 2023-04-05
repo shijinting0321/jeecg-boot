@@ -1,0 +1,46 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://192.168.4.133:3306/cec_saas_soft_gateway?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+      username: root
+      password: 123456
+  redis:
+    database: 0
+    host: 192.168.4.133
+    port: 6379
+    password: 123456
+  flyway:
+    # 迁移文件地址 flyway默认地址为 db/migration ,可根据需求自行配置
+    locations: classpath:db/migration/prod
+plugin:
+  runMode: prod
+cec:
+  saas:
+    soft:
+      gateway:
+        # 设备网关地址
+        domain: http://device.sh-cec.com
+        # 软网关设备序列号，需要先在采控创建一个软网关直连设备
+        serial: E445355A18
+        # 软网关设备版本号
+        version: 1.0.0
+        # 设备同步任务cron时间表达式，默认一天一次
+        collect-device-cron: 0 0 0 */1 * ?
+        # 设备上传采集数据任务cron时间表达式，默认每3秒一次
+        upload-data-cron: 0/3 * * * * ?
+        # mqtt服务地址
+        mqtt-host: 192.168.4.133
+        # mqtt服务端口
+        mqtt-port: 8883
+        # 订阅队列，以下为采控下行的所有队列，不用修改。其中{id}为软网关设备属性变量，程序会自动替换，还支持其他属性，如名称{name}等。
+        topics:
+          - name: device/{id}/baseControl
+          - name: device/{id}/attribute
+          - name: device/{id}/attributeReportReply
+          - name: device/{id}/control
+          - name: device/{id}/releaseControlLock
+          - name: device/{id}/timeSyncReply
+          - name: device/{id}/tcaRuleIssue
+logging:
+  level:
+    com.aidex.gateway.service: debug

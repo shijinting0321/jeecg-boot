@@ -1,0 +1,46 @@
+server:
+  port: 14000
+spring:
+  application:
+    name: cec-ac-soft-gateway
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  flyway:
+    # 启动/禁用
+    enabled: true
+    # 禁止清理数据库表
+    clean-disabled: true
+    # 如果数据库不是空表，需要设置成 true，否则启动报错
+    baseline-on-migrate: true
+    # 与 baseline-on-migrate: true 搭配使用,将当前数据库初始版本设置为0
+    baseline-version: 0
+    # 假如已经执行了版本1和版本3，如果增加了一个版本2，下面这个选项将会允许执行版本2的脚本
+    out-of-order: false
+plugin:
+  mainPackage: com.aidex.gateway
+  pluginPath:
+    - ~/plugins
+mybatis-plus:
+  mapper-locations: classpath:cec/ac/soft/gateway/mapper/xml/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      table-prefix: cec_
+cec:
+  cloud:
+    enable: false
+    login-info-class: com.aidex.gateway.entity.SoftLoginInfo
+# 健康检查配置
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
