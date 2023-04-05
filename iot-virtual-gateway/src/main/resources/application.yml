@@ -2,11 +2,19 @@ server:
   port: 14000
 spring:
   application:
-    name: cec-ac-soft-gateway
+    name: iot-virtual-gateway
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/jeecg-iot-plat?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+      username: root
+      password: 123456
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password: 123456
   flyway:
     # 启动/禁用
     enabled: true
@@ -18,7 +26,9 @@ spring:
     baseline-version: 0
     # 假如已经执行了版本1和版本3，如果增加了一个版本2，下面这个选项将会允许执行版本2的脚本
     out-of-order: false
+    table: flyway_schema_history_${spring.application.name}
 plugin:
+  runMode: prod
   mainPackage: org.jeecg.virtualgateway
   pluginPath:
     - ~/plugins
@@ -31,10 +41,6 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
       table-prefix: iot_
-cec:
-  cloud:
-    enable: false
-    login-info-class: org.jeecg.virtualgateway.entity.SoftLoginInfo
 # 健康检查配置
 management:
   endpoint:
@@ -44,3 +50,27 @@ management:
     web:
       exposure:
         include: "*"
+
+iot:
+  gateway:
+    # 设备网关地址
+    domain: http://localhost:8080
+    # 软网关设备序列号，需要先在采控创建一个软网关直连设备
+    code: 7C50704818
+    # 软网关设备版本号
+    version: 1.0.0
+    # 设备上传采集数据任务cron时间表达式，默认每3秒一次
+    upload-data-cron: 0/3 * * * * ?
+    # mqtt服务地址
+    mqtt-host: localhost
+    # mqtt服务端口
+    mqtt-port: 1883
+    # 订阅队列，以下为采控下行的所有队列，不用修改。其中{id}为软网关设备属性变量，程序会自动替换，还支持其他属性，如名称{name}等。
+    topics:
+      - name: device/{id}/baseControl
+      - name: device/{id}/attribute
+      - name: device/{id}/attributeReportReply
+      - name: device/{id}/control
+      - name: device/{id}/releaseControlLock
+      - name: device/{id}/timeSyncReply
+      - name: device/{id}/tcaRuleIssue

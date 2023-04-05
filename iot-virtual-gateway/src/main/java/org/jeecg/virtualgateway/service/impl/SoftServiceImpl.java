@@ -35,7 +35,7 @@ public class SoftServiceImpl implements ISoftService {
 
     @Override
     public String initInfo() {
-        String serial = properties.getSerial();
+        String serial = properties.getCode();
         String version = properties.getVersion();
 
         Map<String, Object> data = MapUtil.of("sn", serial);
@@ -101,7 +101,7 @@ public class SoftServiceImpl implements ISoftService {
 
     @Override
     public Gateway getInfo() {
-        String serial = properties.getSerial();
+        String serial = properties.getCode();
         String version = properties.getVersion();
 
         String info = redisService.getInfo(serial, version);
@@ -110,7 +110,7 @@ public class SoftServiceImpl implements ISoftService {
                 info = redisService.getInfo(serial, version);
                 if (StrUtil.isBlank(info)) {
                     if (log.isInfoEnabled()) {
-                        log.info("设备初始化: {}, v{}", properties.getSerial(), properties.getVersion());
+                        log.info("设备初始化: {}, v{}", properties.getCode(), properties.getVersion());
                     }
 
                     info = initInfo();

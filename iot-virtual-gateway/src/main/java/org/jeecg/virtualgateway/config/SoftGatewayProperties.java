@@ -20,7 +20,7 @@ import java.util.List;
 @Getter
 @ToString
 @Validated
-@ConfigurationProperties(prefix = "cec.saas.soft.gateway")
+@ConfigurationProperties(prefix = "iot.gateway")
 public class SoftGatewayProperties {
     /**
      * 平台接口地址
@@ -31,7 +31,7 @@ public class SoftGatewayProperties {
      * 软网关序列号
      */
     @NotBlank(message = "软网关序列号不能为空")
-    private String serial;
+    private String code;
     /**
      * 软网关版本号
      */

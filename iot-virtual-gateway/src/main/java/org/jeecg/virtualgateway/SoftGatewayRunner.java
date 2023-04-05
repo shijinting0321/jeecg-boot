@@ -61,7 +61,7 @@ public class SoftGatewayRunner implements ApplicationRunner {
 
     private void initInfo() {
         if (log.isInfoEnabled()) {
-            log.info("初始化设备: {}, v{}", properties.getSerial(), properties.getVersion());
+            log.info("初始化设备: {}, v{}", properties.getCode(), properties.getVersion());
         }
 
         softService.initInfo();
