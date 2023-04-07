@@ -60,6 +60,12 @@ public class SoftGatewayProperties {
     @NotNull(message = "Mqtt端口不能为空")
     private Integer mqttPort;
 
+    @NotNull(message = "Mqtt客户端id不能为空")
+    private String clientId;
+
+    @NotNull(message = "Mqtt客户端密码不能为空")
+    private String clientPwd;
+
     /**
      * Mqtt订阅主题
      */

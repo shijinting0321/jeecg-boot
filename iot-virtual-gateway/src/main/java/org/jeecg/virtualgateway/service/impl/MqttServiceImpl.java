@@ -40,6 +40,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -76,25 +77,13 @@ public class MqttServiceImpl implements IMqttService {
         Assert.isFalse(init, "请勿重复初始化Mqtt客户端");
         init = true;
 
-        Gateway info = softService.getInfo();
-        Assert.notNull(info, "未找到设备信息");
-
-        String host = properties.getMqttHost();
-        int port = properties.getMqttPort();
-
-        long millis = System.currentTimeMillis();
-        String clientId = info.getId() + "|" + "timestamp=" + millis + "|";
-        String username = info.getDeviceKey();
-        byte[] password = signature(info, millis);
-
         Mqtt5Client client = Mqtt5Client.builder()
-                .serverHost(host)
-                .serverPort(port)
-                .identifier(clientId)
+                .serverHost(properties.getMqttHost())
+                .serverPort(properties.getMqttPort())
+                .identifier(properties.getClientId())
 
                 .simpleAuth()
-                .username(username)
-                .password(password)
+                .password(properties.getClientPwd().getBytes())
                 .applySimpleAuth()
 
                 .automaticReconnect()
@@ -102,9 +91,9 @@ public class MqttServiceImpl implements IMqttService {
                 .maxDelay(3, TimeUnit.SECONDS)
                 .applyAutomaticReconnect()
 
-                .willPublish(publishWillStatus(info.getId(), DeviceStatusEnum.OFFLINE))
+                .willPublish(publishWillStatus(properties.getClientId(), DeviceStatusEnum.OFFLINE))
 
-                .addConnectedListener(context -> connectSuccess(context, info.getId()))
+                .addConnectedListener(context -> connectSuccess(context, properties.getClientId()))
                 .addDisconnectedListener(this::connectError)
 
                 .build();
@@ -119,7 +108,7 @@ public class MqttServiceImpl implements IMqttService {
             List<Mqtt5Subscription> subscriptions = topics
                     .stream()
                     .map(topic -> {
-                        String name = StrUtil.format(topic.getName(), BeanUtil.beanToMap(info, false, true));
+                        String name = StrUtil.format(topic.getName(), BeanUtil.beanToMap(properties, false, true));
                         MqttQos qos = topic.getQos();
 
                         return Mqtt5Subscription.builder()

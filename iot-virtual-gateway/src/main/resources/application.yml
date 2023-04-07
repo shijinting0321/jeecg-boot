@@ -65,12 +65,14 @@ iot:
     mqtt-host: localhost
     # mqtt服务端口
     mqtt-port: 1883
+    client-id: "40"  # 连接客户端id
+    client-pwd: ${iot.gateway.client-id} #连接客户端密码
     # 订阅队列，以下为采控下行的所有队列，不用修改。其中{id}为软网关设备属性变量，程序会自动替换，还支持其他属性，如名称{name}等。
     topics:
-      - name: device/{id}/baseControl
-      - name: device/{id}/attribute
-      - name: device/{id}/attributeReportReply
-      - name: device/{id}/control
-      - name: device/{id}/releaseControlLock
-      - name: device/{id}/timeSyncReply
-      - name: device/{id}/tcaRuleIssue
+      - name: device/{clientId}/baseControl
+      - name: device/{clientId}/attribute
+      - name: device/{clientId}/attributeReportReply
+      - name: device/{clientId}/control
+      - name: device/{clientId}/releaseControlLock
+      - name: device/{clientId}/timeSyncReply
+      - name: device/{clientId}/tcaRuleIssue

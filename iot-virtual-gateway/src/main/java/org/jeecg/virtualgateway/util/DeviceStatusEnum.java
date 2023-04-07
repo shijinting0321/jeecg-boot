@@ -13,7 +13,7 @@ import org.springframework.lang.Nullable;
 public enum DeviceStatusEnum implements CodeMessage {
     ONLINE("0", "正常上线"),
     OFFLINE("1", "正常下线"),
-    EXCEPTION("-1", "异常下线");
+    ;
 
     @Getter
     private final String code;

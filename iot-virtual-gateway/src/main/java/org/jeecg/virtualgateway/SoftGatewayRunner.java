@@ -16,6 +16,7 @@ import org.springframework.boot.ApplicationRunner;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 虚拟网关启动时，进行初始化，连接mqtt
  * @author jtcl
  * @date 2022/6/7
  */
@@ -40,47 +41,18 @@ public class SoftGatewayRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-
-        while (true) {
-            try {
-                initInfo();
-                break;
-            } catch (Exception e) {
-                if (log.isWarnEnabled()) {
-                    log.warn("初始化设备失败,稍后重试", e);
-                }
-
-                ThreadUtil.sleep(1, TimeUnit.MINUTES);
-            }
-        }
-        initToken();
         initMqttClient();
         initTask();
-    }
-
-
-    private void initInfo() {
-        if (log.isInfoEnabled()) {
-            log.info("初始化设备: {}, v{}", properties.getCode(), properties.getVersion());
-        }
-
-        softService.initInfo();
-    }
-
-    private void initToken() {
-        if (log.isInfoEnabled()) {
-            log.info("初始化授权");
-        }
-
-        softService.initToken();
     }
 
     private void initMqttClient() {
         if (log.isInfoEnabled()) {
             log.info("初始化Mqtt客户端");
         }
-
         mqttService.initClient();
+        if (log.isInfoEnabled()) {
+            log.info("完成初始化Mqtt客户端，完成mqtt连接");
+        }
     }
 
     private void initTask() {
