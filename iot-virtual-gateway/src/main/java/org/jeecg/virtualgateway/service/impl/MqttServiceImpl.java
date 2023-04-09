@@ -108,7 +108,7 @@ public class MqttServiceImpl implements IMqttService {
             List<Mqtt5Subscription> subscriptions = topics
                     .stream()
                     .map(topic -> {
-                        String name = StrUtil.format(topic.getName(), BeanUtil.beanToMap(properties, false, true));
+                        String name = topic.getName();
                         MqttQos qos = topic.getQos();
 
                         return Mqtt5Subscription.builder()

@@ -528,6 +528,7 @@ public class DeviceServiceImpl extends ServiceImpl<DeviceMapper, Device> impleme
                 .collect(Collectors.toList());
 
         try {
+            // TODO: 2023/4/8 修改上报数据格式 
             // 推送设备数据
             mqttService.publishData(mqttData);
         } catch (Exception e) {

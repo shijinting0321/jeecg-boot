@@ -67,12 +67,8 @@ iot:
     mqtt-port: 1883
     client-id: "40"  # 连接客户端id
     client-pwd: ${iot.gateway.client-id} #连接客户端密码
+    type: ModbusTCP  # OPCDA、OPCUA、ModbusTCP、device    其中device表示是真实设备
     # 订阅队列，以下为采控下行的所有队列，不用修改。其中{id}为软网关设备属性变量，程序会自动替换，还支持其他属性，如名称{name}等。
     topics:
-      - name: device/{clientId}/baseControl
-      - name: device/{clientId}/attribute
-      - name: device/{clientId}/attributeReportReply
-      - name: device/{clientId}/control
-      - name: device/{clientId}/releaseControlLock
-      - name: device/{clientId}/timeSyncReply
-      - name: device/{clientId}/tcaRuleIssue
+      - name: gateway/${iot.gateway.client-id}/control
+      - name: gateway/${iot.gateway.client-id}/controlRes
