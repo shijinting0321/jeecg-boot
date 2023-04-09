@@ -8,9 +8,9 @@
     </parent>
 
     <artifactId>iot-dirver</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
-    <name>iot-dirver</name>
+    <name>驱动</name>
     <url>http://maven.apache.org</url>
 
     <properties>
