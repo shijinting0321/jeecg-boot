@@ -79,6 +79,8 @@
         <module>jeecg-module-system</module>
         <module>jeecg-module-iot</module>
 		<module>iot-virtual-gateway</module>
+        <module>iot-dirver</module>
+        <module>iot-dirver/iot-driver-modbus-tcp</module>
     </modules>
 
 	<repositories>

@@ -1,0 +1,86 @@
+driver:
+  name: OpcUaDriver
+  type: driver
+  project: @project.artifactId@
+  description: @project.description@
+  schedule:
+    status:
+      enable: true
+      corn: '0/10 * * * * ?'
+    read:
+      enable: true
+      corn: '0/30 * * * * ?'
+    custom:
+      enable: true
+      corn:  '0/5 * * * * ?'
+  driver-attribute:
+    - displayName: 主机
+      name: host
+      type: string
+      value: localhost
+      description: Opc Ua IP
+      option:
+        type: input\select\checkox\switch\time...
+        required: true
+        data-type: static/url
+        data: jsonString
+    - displayName: 端口
+      name: port
+      type: int
+      value: 18600
+      description: Opc Ua Port
+      option:
+        type: input\select\checkox\switch\time...
+        required: true
+        data-type: static/url
+        data: jsonString
+    - displayName: 路径
+      name: path
+      type: string
+      value: /
+      description: Opc Ua Path
+      option:
+        type: input\select\checkox\switch\time...
+        required: true
+        data-type: static/url
+        data: jsonString
+  point-attribute:
+    - displayName: 命名空间
+      name: namespace
+      type: int
+      value: 5
+      description: 命名空间索引
+      option:
+        type: input\select\checkox\switch\time...
+        required: true
+        data-type: static/url
+        data: jsonString
+    - displayName: 位号
+      name: tag
+      type: string
+      value: TAG
+      description: 位号名称
+      option:
+        type: input\select\checkox\switch\time...
+        required: true
+        data-type: static/url
+        data: jsonString
+
+server:
+  port: 8603
+
+spring:
+  profiles:
+    active:
+      - server
+      - register
+      - monitor
+      - rabbitmq
+      - quartz
+      - driver
+      - feign
+      - ${NODE_ENV:dev}
+
+logging:
+  file:
+    name: dc3/logs/driver/opcua/${spring.application.name}.log
